@@ -1,0 +1,8 @@
+<div class="flex flex-wrap justify-center p-10">
+  <app-currency-card
+    class="flex py-10 m-1 w-screen relative lg:w-1/6 h-52 border rounded-lg items-center border-gray-300/40 justify-start px-10 hover:bg-gray-100/20 transition-colors cursor-pointer"
+    *ngFor="let currency of currencies"
+    [isFavourite]="isFavorite(currency.id)"
+    [currency]="currency"
+  ></app-currency-card>
+</div>

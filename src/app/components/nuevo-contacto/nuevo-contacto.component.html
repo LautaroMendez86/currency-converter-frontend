@@ -1,0 +1,62 @@
+<form
+  #form="ngForm"
+  (ngSubmit)="onSubmit()"
+  class="w-[35rem] h-screen overflow-hidden flex flex-col items-center justify-center text-lg"
+>
+  <p class="text-2xl pb-10 font-bold">
+    {{ contacto.id ? "Editar contacto" : "Nuevo contacto" }}
+  </p>
+  <div class="flex flex-col justify-center items-left mb-3 w-3/4 font-light">
+    <label for="">Nombre</label>
+    <input
+      class="pl-3 border rounded-md h-9"
+      type="text"
+      [(ngModel)]="contacto.name"
+      name="nombre"
+    />
+  </div>
+  <div class="flex flex-col justify-center items-left mb-3 w-3/4 font-light">
+    <label for="">Apellido</label>
+    <input
+      type="text"
+      class="pl-3 border rounded-md h-9"
+      [(ngModel)]="contacto.lastName"
+      name="apellido"
+    />
+  </div>
+  <div class="flex flex-col justify-center items-left mb-3 w-3/4 font-light">
+    <label for="">Direccion</label>
+    <input
+      class="pl-3 border rounded-md h-9"
+      type="text"
+      [(ngModel)]="contacto.address"
+      name="direccion"
+    />
+  </div>
+  <div class="flex flex-col justify-center items-left mb-3 w-3/4 font-light">
+    <label for="">Email</label>
+    <input
+      class="pl-3 border rounded-md h-9"
+      type="email"
+      name="email"
+      [(ngModel)]="contacto.email"
+    />
+  </div>
+  <div class="flex flex-col justify-center items-left mb-3 w-3/4 font-light">
+    <div class="flex pt-10 justify-end">
+      <button
+        class="border h-12 w-24 rounded-md border-green-500/50 hover:bg-green-400/20 transition-all"
+        type="button"
+        (click)="cerrar.emit()"
+      >
+        Cancelar
+      </button>
+      <button
+        class="ml-2 border h-12 w-24 rounded-md bg-green-500 text-white hover:bg-green-600 transition-all"
+        type="submit"
+      >
+        {{ contacto.id ? "Editar" : "Crear" }}
+      </button>
+    </div>
+  </div>
+</form>

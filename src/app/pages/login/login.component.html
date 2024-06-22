@@ -1,0 +1,61 @@
+<div class="grid h-screen content-evenly md:items-center justify-items-center">
+  <div
+    class="h-screen grid items-center md:h-auto md:p-32 md:shadow-2xl md:backdrop-blur-3xl md:rounded-3xl"
+  >
+    <div class="text-center">
+      <p class="text-green-400 font-bold text-4xl">Bienvenido!</p>
+      <p class="mt-2 font-light text-gray-500">
+        Inicia sesión o
+        <span class="text-green-400 font-bold underline" routerLink="/register"
+          >creá una cuenta</span
+        >
+      </p>
+    </div>
+
+    <form
+      class="flex flex-col mt-10 px-6"
+      #loginForm="ngForm"
+      (ngSubmit)="login()"
+    >
+      <p class="mb-2 text-gray-500">Email</p>
+      <input
+        type="text"
+        class="border h-12 rounded-md p-3 border-gray-400/40"
+        placeholder="example@gmail.com"
+        name="user"
+        [(ngModel)]="loginData.username"
+        #user="ngModel"
+        id="user"
+        name="user"
+        id="user"
+      />
+      <p class="mt-4 mb-2 text-gray-500">Contraseña</p>
+      <input
+        class="border h-12 rounded-md p-3 border-gray-400/40"
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Contraseña"
+        autocomplete="current-password"
+        required
+        minlength="8"
+        [(ngModel)]="loginData.password"
+        #password="ngModel"
+      />
+    </form>
+
+    <div
+      class="mt-auto p-5 flex flex-col justify-center items-center text-center mb-5"
+    >
+      <div>
+        <button
+          class="bg-green-400 py-3 px-4 w-80 h-12 rounded-md text-white hover:bg-green-500 transition-colors"
+          id="loginButton"
+          (click)="login()"
+        >
+          Iniciar sesión
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
