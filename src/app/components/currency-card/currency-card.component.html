@@ -1,4 +1,10 @@
-<div class="pl-5">
+<div class="absolute top-0 right-0 p-3" *ngIf="isSelected">
+  <p class="rounded-full bg-green-600/80 text-white text-2xl font-bold py-5 px-7 shadow-md">
+    {{ getPosition(currency.id ) }}
+  </p>
+</div>
+
+<div class="pl-5" (click)="isSelected ? removeFromSelectedCurrencies(currency) : addToSelectedCurrencies(currency)">
   <div class="text-black/70 font-bold">
     <p class="pr-1 text-xl italic">{{ currency.symbol }}</p>
     <p class="text-gray-500/40">{{ currency.name }}</p>

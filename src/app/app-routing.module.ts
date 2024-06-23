@@ -26,6 +26,11 @@ const routes: Routes = [
     canActivate: [userLoggedIn],
     loadChildren: () => import('./pages/contact/contact.module').then((m) => m.ContactModule)
   },
+  {
+    path: 'converter/:id',
+    canActivate: [userLoggedIn],
+    loadChildren: () => import('./pages/converter/converter.module').then((m) => m.ConverterModule)
+  }
 ];
 
 @NgModule({

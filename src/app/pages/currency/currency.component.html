@@ -4,5 +4,7 @@
     *ngFor="let currency of currencies"
     [isFavourite]="isFavorite(currency.id)"
     [currency]="currency"
+    [isSelected]="isSelected(currency.id)"
+    [ngClass]="{'border-green-600/60 border-4': isSelected(currency.id)}"
   ></app-currency-card>
 </div>

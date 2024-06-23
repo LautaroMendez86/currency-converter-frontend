@@ -2,20 +2,19 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Currency } from 'src/app/interfaces/currency';
 import { CurrencyCardComponent } from "../../components/currency-card/currency-card.component";
-import { FavouriteService } from 'src/app/services/favourite.service';
+import { CurrencyComponent } from '../currency/currency.component';
 
 @Component({
   selector: 'app-favourite-currency',
   standalone: true,
   imports: [CommonModule, CurrencyCardComponent],
-  templateUrl: './favourite-currency.component.html',
-  styleUrls: ['./favourite-currency.component.scss']
+  templateUrl: '../currency/currency.component.html',
+  styleUrls: ['../currency/currency.component.scss']
 })
-export class FavouriteCurrencyComponent {
-  favouriteService = inject(FavouriteService);
-  currencies:Currency[] = [];
+export class FavouriteCurrencyComponent extends CurrencyComponent {
+  override currencies:Currency[] = [];
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     this.fetchFavourites();
   }
 
@@ -23,7 +22,4 @@ export class FavouriteCurrencyComponent {
     this.currencies = await this.favouriteService.index();
   }
 
-  isFavorite(id: number): boolean {
-    return this.favouriteService.currenciesId()?.some(currency => currency === id) ?? false;
-  }
 }

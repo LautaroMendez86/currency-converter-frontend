@@ -2,31 +2,33 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { Currency } from 'src/app/interfaces/currency';
-import { CurrencyCardComponent } from "../../components/currency-card/currency-card.component";
 import { FavouriteService } from 'src/app/services/favourite.service';
 import { Router } from '@angular/router'; // Import the Router module
 
 @Component({
-    selector: 'app-currencies',
-    standalone: true,
-    templateUrl: './currency.component.html',
-    styleUrls: ['./currency.component.scss'],
-    imports: [CommonModule, CurrencyCardComponent]
+    selector: 'app-converter',
+    templateUrl: './converter.component.html',
+    styleUrls: ['./converter.component.scss'],
 })
-
-export class CurrencyComponent implements OnInit {
+export class ConverterComponent implements OnInit {
   currencyService = inject(CurrencyService);
   favouriteService = inject(FavouriteService);
   router = inject(Router);
 
-  currencies:Currency[] = [];
+  currency: Currency = {
+    id: 0,
+    name: '',
+    symbol: '',
+    value: 0
+  };
 
   ngOnInit(): void {
-    this.fetchCurrencies();
+    this.fetchCurrency();
   }
 
-  async fetchCurrencies(){
-    this.currencies = await this.currencyService.getAll()
+  async fetchCurrency(){
+    //id de la ruta
+    // this.currency = await this.currencyService.getOne(this.router.url.queryParams['id'])
   }
 
   isFavorite(id: number): boolean {
@@ -35,9 +37,5 @@ export class CurrencyComponent implements OnInit {
 
   goToConverter(id: number): void {
     this.router.navigate(['/converter', id]);
-  }
-
-  isSelected(id: number): boolean {
-    return this.currencyService.currenciesToConvert.some((currency: Currency) => currency.id === id) ?? false;
   }
 }
