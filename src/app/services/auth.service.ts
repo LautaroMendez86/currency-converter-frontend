@@ -26,8 +26,7 @@ export class AuthService {
         body: JSON.stringify(loginData)
       })
       if(!res.ok) return false;
-      const tokenRecibido = await res.text()
-      console.log("LOGUEANDO",tokenRecibido)
+      const tokenRecibido = await res.text();
       localStorage.setItem("token",tokenRecibido);
       this.token.set(jwtDecode(tokenRecibido));
       return true;

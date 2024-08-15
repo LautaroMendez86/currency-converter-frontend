@@ -1,0 +1,9 @@
+<div class="modal-backdrop bg-black" *ngIf="isVisible">
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close-button" (click)="closeModal()">&times;</span>
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+  

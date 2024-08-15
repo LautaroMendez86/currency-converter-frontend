@@ -4,7 +4,7 @@
   </p>
 </div>
 
-<div class="pl-5" (click)="isSelected ? removeFromSelectedCurrencies(currency) : addToSelectedCurrencies(currency)">
+<div class="pl-5 cursor-pointer" (click)="isSelected ? removeFromSelectedCurrencies(currency) : addToSelectedCurrencies(currency)">
   <div class="text-black/70 font-bold">
     <p class="pr-1 text-xl italic">{{ currency.symbol }}</p>
     <p class="text-gray-500/40">{{ currency.name }}</p>
@@ -42,3 +42,4 @@
     />
   </svg>
 </ng-template>
+

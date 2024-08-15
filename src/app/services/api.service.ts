@@ -1,23 +1,40 @@
 import { Injectable, inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { API } from '../constants/api';
-
+import { RequestOptions } from '../interfaces/requestOptions';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   auth = inject(AuthService);
-  constructor() { }
+  constructor() {}
 
-  async getAuth(endpoint:string){
-    const res = await fetch(API+endpoint,{
-      headers: {
-        Authorization: "Bearer "+this.auth.token()
+  async customFetch(endpoint: string, body?: any, method?: string) {
+    try {
+      const res = await fetch(`${API}${endpoint}`, this.getOptions(body));
+
+      if (res.status === 401) {
+        this.auth.logOut();
       }
-    });
-    if(res.status === 401){
-      this.auth.logOut();
+
+      return await res.json();
+    } catch (error) {
+      return error;
     }
-    return res;
+  }
+
+  getOptions(body?: any): RequestOptions {
+    const options: RequestOptions = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    };
+
+    if (body) {
+      options.body = JSON.stringify(body);
+      options.headers['Content-Type'] = 'application/json';
+    }
+
+    return options;
   }
 }

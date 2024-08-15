@@ -3,6 +3,7 @@ import { Component, Input, inject } from '@angular/core';
 import { Currency } from 'src/app/interfaces/currency';
 import { CommonModule } from '@angular/common';
 import { CurrencyService } from 'src/app/services/currency.service';
+
 @Component({
   selector: 'app-currency-card',
   templateUrl: './currency-card.component.html',

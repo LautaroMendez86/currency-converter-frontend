@@ -1,26 +1,20 @@
 import { Injectable, inject } from '@angular/core';
-import { API } from '../constants/api';
 import { ApiService } from './api.service';
 import { Currency } from '../interfaces/currency';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrencyService extends ApiService {
-
   currenciesToConvert: Currency[] = [];
-  
-  async getAll():Promise<Currency[]>{
-    const res = await fetch(API+"Currency")
-    const resJson = await res.json();
-    return resJson;
-  };
+  apiService = inject(ApiService);
+  baseUrl: string = 'Currency';
 
-  async getOne(id: number):Promise<Currency[]>{
-    const res = await fetch(API+"Currency/"+id)
-    const resJson = await res.json();
-    return resJson;
-  };
-  
+  async getAll(): Promise<Currency[]> {
+    return await this.apiService.customFetch(this.baseUrl);
+  }
 
+  async getOne(id: number): Promise<Currency[]> {
+    return await this.apiService.customFetch(`${this.baseUrl}/${id}`);
+  }
 }
