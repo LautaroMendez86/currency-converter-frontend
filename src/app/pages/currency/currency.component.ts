@@ -6,24 +6,25 @@ import { CurrencyCardComponent } from "../../components/currency-card/currency-c
 import { FavouriteService } from 'src/app/services/favourite.service';
 import { Router } from '@angular/router'; // Import the Router module
 import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-currencies',
     standalone: true,
     templateUrl: './currency.component.html',
     styleUrls: ['./currency.component.scss'],
-    imports: [CommonModule, CurrencyCardComponent, ModalComponent]
+    imports: [CommonModule, FormsModule, CurrencyCardComponent, ModalComponent]
 })
 
 export class CurrencyComponent implements OnInit {
   currencyService = inject(CurrencyService);
   favouriteService = inject(FavouriteService);
   router = inject(Router);
-  
+
   showModal: boolean = false;
-  currency1: number = 0;
-  currency2: number = 0;
-  result: number | null = null;  currencies:Currency[] = [];
+  amount: number = 0;
+  result: number | null = null;
+  currencies:Currency[] = [];
 
   ngOnInit(): void {
     this.fetchCurrencies();
@@ -46,17 +47,15 @@ export class CurrencyComponent implements OnInit {
   }
   closeModal () {
     this.showModal = false;
+    this.result = null;
+    this.amount = 0;
   }
   openModal () {
     this.showModal = true;
   }
 
-  convert() {
-    // Aquí deberías implementar la lógica real de conversión de moneda.
-    // Por ahora, asumamos una tasa de conversión simple.
-    const conversionRate = 1.2; // Esta es una tasa de conversión ficticia.
-    this.result = this.currency1 * conversionRate;
-    this.currency2 = this.result;
+  async convert() {
+    this.result = await this.currencyService.convert(this.currencyService.currenciesToConvert[0].id, this.currencyService.currenciesToConvert[1].id, this.amount);
   }
 
   canConvert () {

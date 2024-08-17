@@ -11,10 +11,18 @@ export class CurrencyService extends ApiService {
   baseUrl: string = 'Currency';
 
   async getAll(): Promise<Currency[]> {
-    return await this.apiService.customFetch(this.baseUrl);
+    return await this.apiService.customFetch(this.baseUrl, 'GET');
   }
 
   async getOne(id: number): Promise<Currency[]> {
-    return await this.apiService.customFetch(`${this.baseUrl}/${id}`);
+    return await this.apiService.customFetch(`${this.baseUrl}/${id}`, 'GET');
+  }
+
+  async convert(fromCurrency: number, toCurrency: number, amount: number): Promise<number> {
+    return await this.apiService.customFetch(`${this.baseUrl}/convert`, 'POST', {
+      fromCurrency,
+      toCurrency,
+      amount,
+    })
   }
 }

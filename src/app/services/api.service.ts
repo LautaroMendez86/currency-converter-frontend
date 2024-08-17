@@ -1,17 +1,18 @@
 import { Injectable, inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { API } from '../constants/api';
-import { RequestOptions } from '../interfaces/requestOptions';
+import { Method, RequestOptions } from '../interfaces/requestOptions';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   auth = inject(AuthService);
-  constructor() {}
 
-  async customFetch(endpoint: string, body?: any, method?: string) {
+
+
+  async customFetch(endpoint: string, method: Method, body?: any) {
     try {
-      const res = await fetch(`${API}${endpoint}`, this.getOptions(body));
+      const res = await fetch(`${API}${endpoint}`, this.getOptions(method, body));
 
       if (res.status === 401) {
         this.auth.logOut();
@@ -23,11 +24,12 @@ export class ApiService {
     }
   }
 
-  getOptions(body?: any): RequestOptions {
+  getOptions(method: Method, body?: any): RequestOptions {
     const options: RequestOptions = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
+      method: method
     };
 
     if (body) {
