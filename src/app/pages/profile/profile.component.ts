@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Subscription } from 'src/app/interfaces/subscription';
 import { User } from 'src/app/interfaces/user';
+import { History } from 'src/app/interfaces/history';
+import { HistoryService } from 'src/app/services/history.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit {
   userService = inject(UserService);
+  historyService = inject(HistoryService);
   subscriptionService = inject(SubscriptionService);
 
   user:User = {
@@ -27,11 +30,13 @@ export class ProfileComponent implements OnInit {
     },
     favourites: {},
   };
+  history: History[] = [];
   subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
     this.getUser();
     this.getSubscription();
+    this.getHistory();
   }
 
   async getUser() {
@@ -40,6 +45,10 @@ export class ProfileComponent implements OnInit {
 
   async getSubscription() {
     this.subscriptions = await this.subscriptionService.index();
+  }
+
+  async getHistory() {
+    this.history = await this.historyService.getHistory();
   }
 
   async updateSubscription(subscriptionId: number) {

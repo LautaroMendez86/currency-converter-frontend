@@ -19,6 +19,7 @@ export class CurrencyService extends ApiService {
       fromCurrency,
       toCurrency,
       amount,
+      userId: this.userId
     })
   }
 }

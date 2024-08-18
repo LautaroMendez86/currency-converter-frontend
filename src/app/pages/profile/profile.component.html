@@ -58,6 +58,31 @@
     </div>
     <div class="pt-4">
       <p class="text-2xl font-bold">Historial de conversiones</p>
+
+      <table class="w-full mt-4 border-collapse">
+        <thead>
+          <tr>
+            <th class="border border-gray-100 px-4 py-2">Ingreso</th>
+            <th class="border border-gray-100 px-4 py-2">Resultado</th>
+            <th class="border border-gray-100 px-4 py-2">Fecha</th>
+          </tr>
+        </thead>
+        <tbody class="text-center text-gray-500">
+          <tr *ngFor="let conversion of history">
+            <td class="border border-gray-100 px-4 py-2">
+              {{ conversion.amount | number:'1.0-2' }} ({{ conversion.currencyFrom.name }})
+            </td>
+            <td class="border border-gray-100 px-4 py-2">
+              {{ conversion.result.toFixed(2) | number:'1.0-2' }} ({{
+                conversion.currencyTo.name
+              }})
+            </td>
+            <td class="border border-gray-100 px-4 py-2">
+              {{ conversion.date | date }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
