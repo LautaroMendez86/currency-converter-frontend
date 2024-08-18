@@ -9,7 +9,6 @@ import { AuthService } from './auth.service';
 export class FavouriteService extends ApiService {
   authService = inject(AuthService)
 
-  userId = this.authService.token()?.sub ?? null;
   currenciesId: WritableSignal<number[]> = signal([]);
 
 
@@ -21,7 +20,7 @@ export class FavouriteService extends ApiService {
     })
 
     return await res.json();
-  } 
+  }
 
   async addToFavourite(id: number):Promise<string>{
     const res = await fetch(API+"favourite", {
@@ -30,7 +29,7 @@ export class FavouriteService extends ApiService {
         "Content-Type":"application/json",
         Authorization: "Bearer " + localStorage.getItem('token')
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         "userId": this.userId,
         "currencyId": id
       })
@@ -46,7 +45,7 @@ export class FavouriteService extends ApiService {
         "Content-Type":"application/json",
         Authorization: "Bearer " + localStorage.getItem('token')
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         "userId": this.userId,
         "currencyId": id
       })
@@ -64,6 +63,6 @@ export class FavouriteService extends ApiService {
     })
     return await response.json();
   }
-  
+
 
 }

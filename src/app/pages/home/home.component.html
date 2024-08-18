@@ -1,15 +1,25 @@
-  <div class="w-full">
-    <div class="flex justify-center pt-10 text-xl">
-      <a
-        routerLink="/"
-        routerLinkActive="font-bold text-green-700"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="mr-1"
-        >Todas las monedas</a
-      >
-      <a class="ml-1" routerLink="/favourites" routerLinkActive="font-bold text-green-700"
-        >Favoritas</a
-      >
-    </div>
-    <router-outlet></router-outlet>
+<div class="w-full">
+  <div class="flex pt-10 text-xl mx-16">
+    <a
+      routerLink="/"
+      routerLinkActive="font-bold text-green-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="mr-1"
+      >Todas las monedas</a
+    >
+    <a
+      class="ml-1"
+      routerLink="/favourites"
+      routerLinkActive="font-bold text-green-700"
+      >Favoritas</a
+    >
+    <a
+      class="ml-auto"
+      routerLink="/profile"
+      routerLinkActive="font-bold text-green-700"
+    >
+      Perfil
+    </a>
   </div>
+  <router-outlet></router-outlet>
+</div>

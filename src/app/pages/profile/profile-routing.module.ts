@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ConverterComponent } from './converter.component';
+import { ProfileComponent } from './profile.component';
 
-const routes: Routes = [
-  {
-    path: "",
-    component: ConverterComponent
-  }
-];
+const routes: Routes = [{ path: '', component: ProfileComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ConverterRoutingModule { }
+export class ProfileRoutingModule { }

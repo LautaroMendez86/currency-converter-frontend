@@ -1,0 +1,63 @@
+<div class="flex h-screen">
+  <div class="flex flex-col justify-center top-1/2 bottom-1/2 p-10 w-1/3 fixed">
+    <div class="mb-8 p-8 border shadow-lg border-gray-100 rounded-xl">
+      <p class="px-4 pt-2 text-xl font-bold">Mis datos</p>
+      <p class="px-4 py-2">{{ user.username }}</p>
+      <p class="px-4 py-1">{{ user.email }}</p>
+    </div>
+    <div class="p-8 shadow-lg border rounded-xl border-gray-100">
+      <p class="px-4 pt-2 text-xl font-bold">Mi suscripción</p>
+      <p class="px-4 py-2">{{ user.subscription.name }}</p>
+      <p class="px-4 py-1" *ngIf="user.subscription.totalAvailableConversions">
+        {{ user.subscription.totalAvailableConversions }} conversiones por mes
+      </p>
+      <p class="px-4 py-1" *ngIf="!user.subscription.totalAvailableConversions">
+        Sin limite de conversiones
+      </p>
+    </div>
+  </div>
+  <div class="w-1/3"></div>
+  <div class="flex flex-col p-10 w-2/3">
+    <p class="text-2xl font-bold">Suscripciones</p>
+    <div class="flex mt-3 overflow-auto">
+      <div
+        *ngFor="let subscription of subscriptions"
+        class="p-8 my-4 mx-1 shadow-md rounded-xl border border-gray-100 h-48 min-w-80"
+      >
+        <p class="text-xl font-bold">{{ subscription.name }}</p>
+        <p
+          class="mt-2 text-gray-600"
+          *ngIf="subscription.totalAvailableConversions"
+        >
+          {{ subscription.totalAvailableConversions }} conversiones por mes
+        </p>
+        <p
+          class="mt-2 text-gray-600"
+          *ngIf="!subscription.totalAvailableConversions"
+        >
+          Sin limite de conversiones
+        </p>
+        <p class="mt-2 text-gray-600">{{ subscription.price }} USD por mes</p>
+        <div class="flex items-end justify-start">
+          <button
+            class="bg-green-500 text-white px-5 py-3 rounded-lg mt-4"
+            (click)="updateSubscription(subscription.id)"
+            *ngIf="subscription.id !== user.subscription.id"
+          >
+            Suscribirme
+          </button>
+          <button
+            class="bg-gray-300 text-white px-5 py-3 rounded-lg mt-4"
+            disabled
+            *ngIf="subscription.id === user.subscription.id"
+          >
+            Suscrito
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pt-4">
+      <p class="text-2xl font-bold">Historial de conversiones</p>
+    </div>
+  </div>
+</div>

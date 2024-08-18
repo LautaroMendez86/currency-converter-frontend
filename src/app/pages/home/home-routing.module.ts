@@ -17,6 +17,11 @@ const routes: Routes = [
         path: 'favourites',
         component: FavouriteCurrencyComponent,
       },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('../profile/profile.module').then((m) => m.ProfileModule),
+      }
     ],
   },
 ];

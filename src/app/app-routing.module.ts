@@ -23,11 +23,11 @@ const routes: Routes = [
     canActivate: [userWithoutLogIn],
     loadChildren: () =>
       import('./pages/register/register.module').then((m) => m.RegisterModule),
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

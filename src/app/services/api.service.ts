@@ -7,8 +7,7 @@ import { Method, RequestOptions } from '../interfaces/requestOptions';
 })
 export class ApiService {
   auth = inject(AuthService);
-
-
+  userId = this.auth.token()?.sub ?? null;
 
   async customFetch(endpoint: string, method: Method, body?: any) {
     try {
