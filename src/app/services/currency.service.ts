@@ -14,7 +14,7 @@ export class CurrencyService extends ApiService {
     return await this.apiService.customFetch(this.baseUrl, 'GET');
   }
 
-  async convert(fromCurrency: number, toCurrency: number, amount: number): Promise<number> {
+  async convert(fromCurrency: number, toCurrency: number, amount: number): Promise<{ success: boolean, result: number, message: string }> {
     return await this.apiService.customFetch(`${this.baseUrl}/convert`, 'POST', {
       fromCurrency,
       toCurrency,

@@ -53,10 +53,26 @@ export class CurrencyComponent implements OnInit {
   openModal () {
     this.showModal = true;
   }
-
   async convert() {
-    this.result = await this.currencyService.convert(this.currencyService.currenciesToConvert[0].id, this.currencyService.currenciesToConvert[1].id, this.amount);
-  }
+    try {
+        const [from, to] = this.currencyService.currenciesToConvert;
+        const response = await this.currencyService.convert(
+            from.id,
+            to.id,
+            this.amount
+        );
+
+        if (response.success) {
+            this.result = response.result;
+        } else {
+            alert(response.message);
+        }
+    } catch (error) {
+        console.error("Error en la conversión:", error);
+        alert("Ocurrió un error inesperado durante la conversión.");
+    }
+}
+
 
   canConvert () {
     return this.currencyService.currenciesToConvert.length === 2
