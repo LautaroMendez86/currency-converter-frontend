@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiService } from './api.service';
 import { Currency } from '../interfaces/currency';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import { Currency } from '../interfaces/currency';
 export class CurrencyService extends ApiService {
   currenciesToConvert: Currency[] = [];
   apiService = inject(ApiService);
+  authService = inject(AuthService);
   baseUrl: string = 'Currency';
 
   async getAll(): Promise<Currency[]> {
@@ -19,7 +21,7 @@ export class CurrencyService extends ApiService {
       fromCurrency,
       toCurrency,
       amount,
-      userId: this.userId
+      userId: this.auth.userId
     })
   }
 }

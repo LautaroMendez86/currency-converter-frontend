@@ -26,7 +26,8 @@ export class RegisterComponent {
     try{
       const res = await this.authService.register(this.registerData);
       if(res.ok) {
-        this.router.navigate(["/login"])
+        await this.authService.login(this.registerData);
+        this.router.navigate(["/subscription"]);
       }
       else {
         this.errorRegister.set(true);

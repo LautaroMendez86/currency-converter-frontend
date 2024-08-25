@@ -7,14 +7,18 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService  {
   constructor(){
     const token = localStorage.getItem('token');
-    if(token) this.token.set(jwtDecode(token));
+    if(token) {
+      this.token.set(jwtDecode(token))
+      this.userId = this.token()?.sub ?? null;
+    };
   }
   router = inject(Router);
   token: WritableSignal<string | null> = signal(null);
   user = signal(null);
+  userId: (() => string) | null = null;
 
   async login(loginData:LoginData){
     try{
@@ -29,6 +33,7 @@ export class AuthService {
       const tokenRecibido = await res.text();
       localStorage.setItem("token",tokenRecibido);
       this.token.set(jwtDecode(tokenRecibido));
+      this.userId = this.token()?.sub ?? null;
       return true;
     }
     catch{
@@ -49,6 +54,7 @@ export class AuthService {
 
   logOut(){
     this.token.set(null);
+    this.userId = null;
     localStorage.removeItem("token");
     this.router.navigate(["/login"]);
   }

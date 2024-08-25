@@ -23,7 +23,15 @@ const routes: Routes = [
     canActivate: [userWithoutLogIn],
     loadChildren: () =>
       import('./pages/register/register.module').then((m) => m.RegisterModule),
-  }
+  },
+  {
+    path: 'subscription',
+    canActivate: [userLoggedIn],
+    loadChildren: () =>
+      import('./pages/subscription/subscription.module').then(
+        (m) => m.SubscriptionModule
+      ),
+  },
 ];
 
 @NgModule({
