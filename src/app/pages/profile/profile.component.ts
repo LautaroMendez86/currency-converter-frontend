@@ -5,6 +5,7 @@ import { History } from 'src/app/interfaces/history';
 import { HistoryService } from 'src/app/services/history.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit {
   userService = inject(UserService);
+  authService = inject(AuthService);
   historyService = inject(HistoryService);
   subscriptionService = inject(SubscriptionService);
 
@@ -61,4 +63,11 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  async logout() {
+    try {
+      await this.authService.logOut();
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  }
 }
