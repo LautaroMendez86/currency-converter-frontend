@@ -62,12 +62,4 @@ export class ProfileComponent implements OnInit {
       console.error("Error al actualizar la suscripción:", error);
     }
   }
-
-  async logout() {
-    try {
-      await this.authService.logOut();
-    } catch (error) {
-      console.error("Error al cerrar sesión:", error);
-    }
-  }
 }

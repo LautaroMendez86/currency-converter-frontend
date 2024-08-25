@@ -4,7 +4,7 @@ import { CurrencyService } from 'src/app/services/currency.service';
 import { Currency } from 'src/app/interfaces/currency';
 import { CurrencyCardComponent } from "../../components/currency-card/currency-card.component";
 import { FavouriteService } from 'src/app/services/favourite.service';
-import { Router } from '@angular/router'; // Import the Router module
+import { Router } from '@angular/router';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 

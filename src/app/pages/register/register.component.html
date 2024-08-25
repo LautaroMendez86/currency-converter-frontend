@@ -6,7 +6,7 @@
       <p class="text-green-400 font-bold text-4xl">Bienvenido!</p>
       <p class="mt-2 font-light text-gray-500">
         Creá una cuenta o
-        <span class="text-green-400 font-bold underline">inicia sesión</span>
+        <span class="text-green-400 font-bold underline cursor-pointer" routerLink="/login">inicia sesión</span>
       </p>
     </div>
 
@@ -15,12 +15,21 @@
       #registerForm="ngForm"
       (ngSubmit)="register()"
     >
-      <p class="mt-4 mb-2 text-gray-500">Nombre</p>
+      <p class="mt-4 mb-2 text-gray-500">Nombre de usuario</p>
       <input
         type="text"
         class="border h-12 rounded-md p-3 border-gray-400/40"
         name="firstName"
+        placeholder="lmendez"
         [(ngModel)]="registerData.username"
+      />
+      <p class="mt-4 mb-2 text-gray-500">Email</p>
+      <input
+        type="text"
+        class="border h-12 rounded-md p-3 border-gray-400/40"
+        name="email"
+        placeholder="ejemplo@ejemplo.com"
+        [(ngModel)]="registerData.email"
       />
       <p class="mt-4 mb-2 text-gray-500">Contraseña</p>
       <input

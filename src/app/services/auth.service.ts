@@ -44,8 +44,7 @@ export class AuthService {
       },
       body: JSON.stringify(registerData)
     });
-    console.log("REGISTRANDO", res)
-    return res
+    return res;
   }
 
   logOut(){
