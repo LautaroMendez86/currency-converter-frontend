@@ -8,7 +8,7 @@
         <button
           class="bg-red-600 text-white px-5 py-3 rounded-lg mt-4 hover:bg-red-700 transition-colors"
           (click)="authService.logOut()"
-        >
+          >
           Cerrar sesión
         </button>
       </div>
@@ -16,53 +16,62 @@
     <div class="p-8 shadow-lg border rounded-xl border-gray-100">
       <p class="px-4 pt-2 text-xl font-bold">Mi suscripción</p>
       <p class="px-4 py-2">{{ user.subscription.name }}</p>
-      <p class="px-4 py-1" *ngIf="user.subscription.totalAvailableConversions">
-        {{ user.subscription.totalAvailableConversions }} conversiones por mes
-      </p>
-      <p class="px-4 py-1" *ngIf="!user.subscription.totalAvailableConversions">
-        Sin limite de conversiones
-      </p>
+      @if (user.subscription.totalAvailableConversions) {
+        <p class="px-4 py-1">
+          {{ user.subscription.totalAvailableConversions }} conversiones por mes
+        </p>
+      }
+      @if (!user.subscription.totalAvailableConversions) {
+        <p class="px-4 py-1">
+          Sin limite de conversiones
+        </p>
+      }
     </div>
   </div>
   <div class="w-1/3"></div>
   <div class="flex flex-col p-10 w-2/3">
     <p class="text-2xl font-bold">Suscripciones</p>
     <div class="flex mt-3 overflow-auto min-h-60">
-      <div
-        *ngFor="let subscription of subscriptions"
-        class="p-8 my-4 mx-1 shadow-md rounded-xl border border-gray-100 h-48 min-w-80"
-      >
-        <p class="text-xl font-bold">{{ subscription.name }}</p>
-        <p
-          class="mt-2 text-gray-600"
-          *ngIf="subscription.totalAvailableConversions"
-        >
-          {{ subscription.totalAvailableConversions }} conversiones por mes
-        </p>
-        <p
-          class="mt-2 text-gray-600"
-          *ngIf="!subscription.totalAvailableConversions"
-        >
-          Sin limite de conversiones
-        </p>
-        <p class="mt-2 text-gray-600">{{ subscription.price }} USD por mes</p>
-        <div class="flex items-end justify-start">
-          <button
-            class="bg-green-500 text-white px-5 py-3 rounded-lg mt-4"
-            (click)="updateSubscription(subscription.id)"
-            *ngIf="subscription.id !== user.subscription.id"
+      @for (subscription of subscriptions; track subscription) {
+        <div
+          class="p-8 my-4 mx-1 shadow-md rounded-xl border border-gray-100 h-48 min-w-80"
           >
-            Suscribirme
-          </button>
-          <button
-            class="bg-gray-300 text-white px-5 py-3 rounded-lg mt-4"
-            disabled
-            *ngIf="subscription.id === user.subscription.id"
-          >
-            Suscrito
-          </button>
+          <p class="text-xl font-bold">{{ subscription.name }}</p>
+          @if (subscription.totalAvailableConversions) {
+            <p
+              class="mt-2 text-gray-600"
+              >
+              {{ subscription.totalAvailableConversions }} conversiones por mes
+            </p>
+          }
+          @if (!subscription.totalAvailableConversions) {
+            <p
+              class="mt-2 text-gray-600"
+              >
+              Sin limite de conversiones
+            </p>
+          }
+          <p class="mt-2 text-gray-600">{{ subscription.price }} USD por mes</p>
+          <div class="flex items-end justify-start">
+            @if (subscription.id !== user.subscription.id) {
+              <button
+                class="bg-green-500 text-white px-5 py-3 rounded-lg mt-4"
+                (click)="updateSubscription(subscription.id)"
+                >
+                Suscribirme
+              </button>
+            }
+            @if (subscription.id === user.subscription.id) {
+              <button
+                class="bg-gray-300 text-white px-5 py-3 rounded-lg mt-4"
+                disabled
+                >
+                Suscrito
+              </button>
+            }
+          </div>
         </div>
-      </div>
+      }
     </div>
     <div class="pt-4">
       <p class="text-2xl font-bold">Historial de conversiones</p>
@@ -76,21 +85,23 @@
           </tr>
         </thead>
         <tbody class="text-center text-gray-500">
-          <tr *ngFor="let conversion of history">
-            <td class="border border-gray-100 px-4 py-2">
-              {{ conversion.amount | number : "1.0-2" }} ({{
+          @for (conversion of history; track conversion) {
+            <tr>
+              <td class="border border-gray-100 px-4 py-2">
+                {{ conversion.amount | number : "1.0-2" }} ({{
                 conversion.currencyFrom.name
-              }})
-            </td>
-            <td class="border border-gray-100 px-4 py-2">
-              {{ conversion.result.toFixed(2) | number : "1.0-2" }} ({{
+                }})
+              </td>
+              <td class="border border-gray-100 px-4 py-2">
+                {{ conversion.result.toFixed(2) | number : "1.0-2" }} ({{
                 conversion.currencyTo.name
-              }})
-            </td>
-            <td class="border border-gray-100 px-4 py-2">
-              {{ conversion.date | date }}
-            </td>
-          </tr>
+                }})
+              </td>
+              <td class="border border-gray-100 px-4 py-2">
+                {{ conversion.date | date }}
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

@@ -4,30 +4,33 @@
 </div>
 <div class="flex flex-col py-10">
   <div class="flex mt-3 overflow-auto min-h-60 w-screen justify-center">
-    <div
-      *ngFor="let subscription of subscriptions"
-      class="p-8 my-4 mx-1 shadow-md rounded-xl border border-gray-100 h-48 min-w-80"
-    >
-      <p class="text-xl font-bold">{{ subscription.name }}</p>
-      <p
-        class="mt-2 text-gray-600"
-        *ngIf="subscription.totalAvailableConversions"
-      >
-        {{ subscription.totalAvailableConversions }} conversiones por mes
-      </p>
-      <p
-        class="mt-2 text-gray-600"
-        *ngIf="!subscription.totalAvailableConversions"
-      >
-        Sin limite de conversiones
-      </p>
-      <p class="mt-2 text-gray-600">{{ subscription.price }} USD por mes</p>
-      <div class="flex items-end justify-start">
-        <button
-          class="bg-green-500 text-white px-5 py-3 rounded-lg mt-4"
-          (click)="updateSubscription(subscription.id)"
+    @for (subscription of subscriptions; track subscription) {
+      <div
+        class="p-8 my-4 mx-1 shadow-md rounded-xl border border-gray-100 h-48 min-w-80"
         >
-          Suscribirme
-        </button>
+        <p class="text-xl font-bold">{{ subscription.name }}</p>
+        @if (subscription.totalAvailableConversions) {
+          <p
+            class="mt-2 text-gray-600"
+            >
+            {{ subscription.totalAvailableConversions }} conversiones por mes
+          </p>
+        }
+        @if (!subscription.totalAvailableConversions) {
+          <p
+            class="mt-2 text-gray-600"
+            >
+            Sin limite de conversiones
+          </p>
+        }
+        <p class="mt-2 text-gray-600">{{ subscription.price }} USD por mes</p>
+        <div class="flex items-end justify-start">
+          <button
+            class="bg-green-500 text-white px-5 py-3 rounded-lg mt-4"
+            (click)="updateSubscription(subscription.id)"
+            >
+            Suscribirme
+          </button>
+        </div>
       </div>
-    </div>
+    }
