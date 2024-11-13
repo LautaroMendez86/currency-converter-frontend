@@ -6,7 +6,7 @@ export const userWithoutLogIn: CanActivateFn = async (route, state) => {
   const auth = inject(AuthService);
     if(auth.token()){
     const router = inject(Router);
-    router.navigate(['/contacts']);
+    router.navigate(['/']);
     return false;
   }
   return true;
