@@ -6,52 +6,128 @@
       <p class="text-green-400 font-bold text-4xl">Bienvenido!</p>
       <p class="mt-2 font-light text-gray-500">
         Creá una cuenta o
-        <span class="text-green-400 font-bold underline cursor-pointer" routerLink="/login">inicia sesión</span>
+        <span
+          class="text-green-400 font-bold underline cursor-pointer"
+          routerLink="/login"
+          >inicia sesión</span
+        >
       </p>
     </div>
 
     <form
       class="flex flex-col mt-10 px-6"
       #registerForm="ngForm"
-      (ngSubmit)="register()"
+      (ngSubmit)="register(registerForm)"
     >
       <p class="mt-4 mb-2 text-gray-500">Nombre de usuario</p>
       <input
         type="text"
         class="border h-12 rounded-md p-3 border-gray-400/40"
+        [ngClass]="{
+          'border-red-500':
+            firstName.invalid &&
+            (firstName.dirty || firstName.touched || registerForm.submitted),
+          'border-gray-400': !(
+            firstName.invalid &&
+            (firstName.dirty || firstName.touched || registerForm.submitted)
+          )
+        }"
         name="firstName"
         placeholder="lmendez"
         [(ngModel)]="registerData.username"
+        #firstName="ngModel"
+        required
       />
+      <div
+        *ngIf="
+          firstName.invalid &&
+          (firstName.dirty || firstName.touched || registerForm.submitted)
+        "
+        class="text-red-500 text-sm"
+      >
+        <p *ngIf="firstName.errors?.['required']">
+          El nombre de usuario es obligatorio.
+        </p>
+      </div>
+
       <p class="mt-4 mb-2 text-gray-500">Email</p>
       <input
         type="text"
         class="border h-12 rounded-md p-3 border-gray-400/40"
+        [ngClass]="{
+          'border-red-500':
+            email.invalid &&
+            (email.dirty || email.touched || registerForm.submitted),
+          'border-gray-400': !(
+            email.invalid &&
+            (email.dirty || email.touched || registerForm.submitted)
+          )
+        }"
         name="email"
         placeholder="ejemplo@ejemplo.com"
         [(ngModel)]="registerData.email"
+        #email="ngModel"
+        required
+        email
       />
+      <div
+        *ngIf="
+          email.invalid &&
+          (email.dirty || email.touched || registerForm.submitted)
+        "
+        class="text-red-500 text-sm"
+      >
+        <p *ngIf="email.errors?.['required']">El correo es obligatorio.</p>
+        <p *ngIf="email.errors?.['email']">El correo no es válido.</p>
+      </div>
+
       <p class="mt-4 mb-2 text-gray-500">Contraseña</p>
       <input
-        type="text"
+        type="password"
         class="border h-12 rounded-md p-3 border-gray-400/40"
+        [ngClass]="{
+          'border-red-500':
+            password.invalid &&
+            (password.dirty || password.touched || registerForm.submitted),
+          'border-gray-400': !(
+            password.invalid &&
+            (password.dirty || password.touched || registerForm.submitted)
+          )
+        }"
         placeholder="*********"
         name="password"
         [(ngModel)]="registerData.password"
+        #password="ngModel"
+        required
+        minlength="8"
       />
-    </form>
-
-    <div
-      class="mt-auto p-5 flex flex-col justify-center items-center text-center mb-5"
-    >
-      <div>
-        <button
-          class="bg-green-400 py-3 px-4 w-80 h-12 rounded-md text-white hover:bg-green-500 transition-colors"
-          (click)="register()"
-        >
-          Registrate
-        </button>
+      <div
+        *ngIf="
+          password.invalid &&
+          (password.dirty || password.touched || registerForm.submitted)
+        "
+        class="text-red-500 text-sm"
+      >
+        <p *ngIf="password.errors?.['required']">
+          La contraseña es obligatoria.
+        </p>
+        <p *ngIf="password.errors?.['minlength']">
+          La contraseña debe tener al menos 8 caracteres.
+        </p>
       </div>
-    </div>
+
+      <div
+        class="mt-6 flex flex-col justify-center items-center text-center mb-5"
+      >
+        <div>
+          <button
+            class="bg-green-400 py-3 px-4 w-80 h-12 rounded-md text-white hover:bg-green-500 transition-colors"
+            type="submit"
+          >
+            Registrate
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, WritableSignal, inject, signal } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterData } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,7 +21,13 @@ export class RegisterComponent {
     password: "",
   }
 
-  async register(){
+  async register(registerForm:NgForm){
+
+    registerForm.form.markAllAsTouched();
+    if (registerForm.invalid) {
+      return;
+    }
+
     this.errorRegister.set(false);
     this.cargando.set(true);
     try{
