@@ -14,6 +14,7 @@ export class RegisterComponent {
   router = inject(Router);
   errorRegister: WritableSignal<boolean> = signal(false)
   cargando = signal(false);
+  message = signal("");
 
   registerData: RegisterData = {
     username: "",
@@ -38,10 +39,18 @@ export class RegisterComponent {
       }
       else {
         this.errorRegister.set(true);
+        const errorMessage = await res.text();
+        this.message.set(errorMessage);
       }
-    } catch(err) {
-      console.warn('Error registrando', err)
+    } catch(error) {
+      this.errorRegister.set(true);
+      this.message.set((error as any).message);
     }
     this.cargando.set(false);
+  }
+
+  clearError() {
+    this.errorRegister.set(false);
+    this.message.set("");
   }
 }

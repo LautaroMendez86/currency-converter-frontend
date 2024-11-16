@@ -19,7 +19,7 @@
       #loginForm="ngForm"
       (ngSubmit)="login(loginForm)"
     >
-      <p class="mb-2 text-gray-500">Email</p>
+      <p class="mb-2 text-gray-500">Nombre de usuario</p>
       <input
         type="text"
         class="border h-12 rounded-md p-3 border-gray-400/40"
@@ -31,13 +31,13 @@
             (user.dirty || user.touched || loginForm.submitted)
           )
         }"
-        placeholder="example@gmail.com"
+        placeholder="Nombre de usuario"
         name="user"
         [(ngModel)]="loginData.username"
         #user="ngModel"
         id="user"
         required
-        email
+        (ngModelChange)="clearError()"
       />
       <div
         *ngIf="
@@ -45,8 +45,7 @@
         "
         class="text-red-500 text-sm"
       >
-        <p *ngIf="user.errors?.['required']">El correo es obligatorio.</p>
-        <p *ngIf="user.errors?.['email']">El correo no es válido.</p>
+        <p *ngIf="user.errors?.['required']">El username es obligatorio.</p>
       </div>
 
       <p class="mt-4 mb-2 text-gray-500">Contraseña</p>
@@ -70,6 +69,7 @@
         #password="ngModel"
         required
         minlength="4"
+        (ngModelChange)="clearError()"
       />
       <div
         *ngIf="
@@ -89,6 +89,9 @@
       <div
         class="mt-4 flex flex-col justify-center items-center text-center mb-5"
       >
+        <div *ngIf="errorLogin()" class="text-red-500 mb-4">
+          <p>Credenciales incorrectas.</p>
+        </div>
         <div>
           <button
             class="bg-green-400 py-3 px-4 w-80 h-12 rounded-md text-white hover:bg-green-500 transition-colors"
