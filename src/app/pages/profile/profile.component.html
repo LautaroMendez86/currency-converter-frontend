@@ -32,10 +32,10 @@
 
   <div class="flex flex-col gap-6 p-4 w-full md:w-2/3">
     <p class="text-2xl font-bold">Suscripciones</p>
-    <div class="flex flex-wrap lg:flex-nowrap gap-4 overflow-auto sm:min-h-60 lg:min-h-0 justify-center lg:justify-normal">
+    <div class="flex flex-wrap lg:flex-nowrap gap-4 overflow-auto sm:min-h-60 lg:min-h-44 justify-center lg:justify-normal">
       @for (subscription of subscriptions; track subscription) {
         <div
-          class="p-6 shadow-md rounded-xl border border-gray-100 h-auto max-w-xs w-full"
+          class="p-6 shadow-md rounded-xl border border-gray-100 h-auto max-w-xs w-full lg:min-h-32"
         >
           <p class="text-lg font-bold">{{ subscription.name }}</p>
           @if (subscription.totalAvailableConversions) {
