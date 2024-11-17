@@ -1,19 +1,19 @@
-<div class="flex h-screen">
-  <div class="flex flex-col justify-center top-1/2 bottom-1/2 p-10 w-1/3 fixed">
-    <div class="mb-8 p-8 border shadow-lg border-gray-100 rounded-xl">
+<div class="flex flex-col md:flex-row h-auto md:h-screen">
+  <div class="flex flex-col gap-4 justify-center p-4 w-full md:w-1/3 md:fixed md:relative items-center lg:items-stretch">
+    <div class="mb-4 p-6 border shadow-lg border-gray-100 rounded-xl max-w-xs lg:max-w-full">
       <p class="px-4 pt-2 text-xl font-bold">Mis datos</p>
       <p class="px-4 py-2">{{ user.username }}</p>
       <p class="px-4 py-1">{{ user.email }}</p>
       <div class="px-4">
         <button
-          class="bg-red-600 text-white px-5 py-3 rounded-lg mt-4 hover:bg-red-700 transition-colors"
+          class="bg-red-600 text-white px-5 py-3 rounded-lg mt-4 hover:bg-red-700 transition-colors w-full"
           (click)="authService.logOut()"
-          >
+        >
           Cerrar sesión
         </button>
       </div>
     </div>
-    <div class="p-8 shadow-lg border rounded-xl border-gray-100">
+    <div class="p-6 shadow-lg border rounded-xl border-gray-100 max-w-xs lg:max-w-full">
       <p class="px-4 pt-2 text-xl font-bold">Mi suscripción</p>
       <p class="px-4 py-2">{{ user.subscription.name }}</p>
       @if (user.subscription.totalAvailableConversions) {
@@ -28,44 +28,39 @@
       }
     </div>
   </div>
-  <div class="w-1/3"></div>
-  <div class="flex flex-col p-10 w-2/3">
+
+
+  <div class="flex flex-col gap-6 p-4 w-full md:w-2/3">
     <p class="text-2xl font-bold">Suscripciones</p>
-    <div class="flex mt-3 overflow-auto min-h-60">
+    <div class="flex flex-wrap lg:flex-nowrap gap-4 overflow-auto sm:min-h-60 lg:min-h-0 justify-center lg:justify-normal">
       @for (subscription of subscriptions; track subscription) {
         <div
-          class="p-8 my-4 mx-1 shadow-md rounded-xl border border-gray-100 h-48 min-w-80"
-          >
-          <p class="text-xl font-bold">{{ subscription.name }}</p>
+          class="p-6 shadow-md rounded-xl border border-gray-100 h-auto max-w-xs w-full"
+        >
+          <p class="text-lg font-bold">{{ subscription.name }}</p>
           @if (subscription.totalAvailableConversions) {
-            <p
-              class="mt-2 text-gray-600"
-              >
+            <p class="mt-2 text-gray-600">
               {{ subscription.totalAvailableConversions }} conversiones por mes
             </p>
           }
           @if (!subscription.totalAvailableConversions) {
-            <p
-              class="mt-2 text-gray-600"
-              >
-              Sin limite de conversiones
-            </p>
+            <p class="mt-2 text-gray-600">Sin limite de conversiones</p>
           }
           <p class="mt-2 text-gray-600">{{ subscription.price }} USD por mes</p>
           <div class="flex items-end justify-start">
             @if (subscription.id !== user.subscription.id) {
               <button
-                class="bg-green-500 text-white px-5 py-3 rounded-lg mt-4"
+                class="bg-green-500 text-white px-5 py-3 rounded-lg mt-4 w-full"
                 (click)="updateSubscription(subscription.id)"
-                >
+              >
                 Suscribirme
               </button>
             }
             @if (subscription.id === user.subscription.id) {
               <button
-                class="bg-gray-300 text-white px-5 py-3 rounded-lg mt-4"
+                class="bg-gray-300 text-white px-5 py-3 rounded-lg mt-4 w-full"
                 disabled
-                >
+              >
                 Suscrito
               </button>
             }
@@ -73,10 +68,9 @@
         </div>
       }
     </div>
-    <div class="pt-4">
+    <div>
       <p class="text-2xl font-bold">Historial de conversiones</p>
-
-      <table class="w-full mt-4 border-collapse">
+      <table class="w-full mt-4 border-collapse text-sm">
         <thead>
           <tr>
             <th class="border border-gray-100 px-4 py-2">Ingreso</th>

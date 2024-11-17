@@ -1,20 +1,24 @@
 <div class="w-full">
-  <div class="flex pt-10 text-xl mx-16">
+  <div
+    class="flex flex-wrap pt-10 text-xl mx-16 gap-4 md:gap-0 md:text-left text-center"
+  >
     <a
       routerLink="/"
       routerLinkActive="font-bold text-green-700"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="mr-1"
-      >Todas las monedas</a
+      class="mx-auto md:mx-0 lg:mr-2"
     >
+      Monedas
+    </a>
     <a
-      class="ml-1"
+      class="mx-auto md:mx-0"
       routerLink="/favourites"
       routerLinkActive="font-bold text-green-700"
-      >Favoritas</a
     >
+      Favoritas
+    </a>
     <a
-      class="ml-auto"
+      class="mx-auto md:mx-0 md:ml-auto"
       routerLink="/profile"
       routerLinkActive="font-bold text-green-700"
     >
